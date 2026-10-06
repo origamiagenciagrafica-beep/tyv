@@ -1,0 +1,6 @@
+{
+  "name": "Evaluador RAP: Ilustración Vectorial y Mapa de Bits - SENA",
+  "description": "Sistema gráfico e interactivo para la evaluación automatizada del Resultado de Aprendizaje RAP_EJE_01: Ilustración Vectorial y Composición de Mapa de Bits para aprendices SENA.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
