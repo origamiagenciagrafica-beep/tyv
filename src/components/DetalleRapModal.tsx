@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Sparkles } from 'lucide-react';
 import { RapItem } from '../data/senaData';
+import { MASCOTS_90S } from '../assets/mascots';
 
 interface DetalleRapModalProps {
   isOpen: boolean;
@@ -19,15 +20,24 @@ export const DetalleRapModal: React.FC<DetalleRapModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/50 backdrop-blur-sm overflow-y-auto">
-      <div className="relative w-full max-w-2xl bg-stone-50 border border-stone-300 rounded-2xl shadow-2xl overflow-hidden my-auto">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-stone-200 bg-white">
-          <div className="flex items-center gap-2.5">
-            <span className="font-mono text-sm font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded border border-emerald-300">
-              {rap.codigo}
-            </span>
-            <span className="text-xs text-slate-600 font-semibold">
-              {rap.faseTitulo}
-            </span>
+      <div className="relative w-full max-w-2xl bg-stone-50 border-3 border-slate-900 rounded-3xl shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] overflow-hidden my-auto">
+        <div className="flex items-center justify-between px-6 py-4 border-b-2 border-slate-200 bg-white">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-amber-200 border-2 border-slate-900 p-0.5 shrink-0 overflow-hidden shadow-xs">
+              <img
+                src={MASCOTS_90S.bezierPen.src}
+                alt="Pen-Tooly"
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+            <div>
+              <span className="font-mono text-xs font-black text-slate-900 bg-emerald-200 border border-slate-900 px-2 py-0.5 rounded-full mr-2">
+                {rap.codigo}
+              </span>
+              <span className="text-xs text-slate-600 font-bold">
+                {rap.faseTitulo}
+              </span>
+            </div>
           </div>
 
           <button

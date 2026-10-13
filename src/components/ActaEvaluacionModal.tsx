@@ -1,6 +1,7 @@
 import React from 'react';
-import { X, Printer, CheckCircle2, AlertOctagon, Download, ShieldCheck } from 'lucide-react';
+import { X, Printer, CheckCircle2, AlertOctagon, Download, ShieldCheck, Sparkles } from 'lucide-react';
 import { AprendizSena, EvaluacionRegistro, RapItem } from '../data/senaData';
+import { MASCOTS_90S } from '../assets/mascots';
 
 interface ActaEvaluacionModalProps {
   isOpen: boolean;
@@ -178,7 +179,7 @@ export const ActaEvaluacionModal: React.FC<ActaEvaluacionModalProps> = ({
             </table>
           </div>
 
-          {/* Official Verdict / Juicio SENA */}
+          {/* Official Verdict / Juicio SENA with 90s Commemorative Seal */}
           <div
             className={`p-4 rounded-xl border-2 flex items-center justify-between gap-4 ${
               isAprobado
@@ -186,30 +187,43 @@ export const ActaEvaluacionModal: React.FC<ActaEvaluacionModalProps> = ({
                 : 'border-amber-600 bg-amber-50/50'
             }`}
           >
-            <div>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-slate-600">
-                JUICIO EVALUATIVO DEFINITIVO (NORMATIVA SENA):
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 rounded-xl border-2 border-slate-900 bg-white p-0.5 shrink-0 overflow-hidden shadow-xs">
+                <img
+                  src={isAprobado ? MASCOTS_90S.approved.src : MASCOTS_90S.planMejora.src}
+                  alt="Sello Cartoons 90s"
+                  className="w-full h-full object-cover rounded-lg"
+                />
               </div>
-              <div
-                className={`text-2xl font-black tracking-tight ${
-                  isAprobado ? 'text-[#39A900]' : 'text-amber-700'
-                }`}
-              >
-                {isAprobado ? 'APROBADO (A)' : 'NO APROBADO (D)'}
-              </div>
-              <div className="text-xs text-slate-700 mt-1">
-                Puntaje Ponderado Obtenido:{' '}
-                <strong className="font-mono">{evaluacion.porcentaje}%</strong> / 100% (Mínimo aprobatorio: 70%)
+
+              <div>
+                <div className="text-[10px] font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1.5">
+                  <span>JUICIO EVALUATIVO DEFINITIVO (NORMATIVA SENA):</span>
+                  <span className="text-[9px] font-black bg-yellow-200 text-slate-900 px-1.5 py-0.2 rounded border border-slate-900">
+                    Sello '90s CENIGRAF
+                  </span>
+                </div>
+                <div
+                  className={`text-2xl font-black tracking-tight ${
+                    isAprobado ? 'text-[#39A900]' : 'text-amber-700'
+                  }`}
+                >
+                  {isAprobado ? 'APROBADO (A)' : 'NO APROBADO (D)'}
+                </div>
+                <div className="text-xs text-slate-700 mt-0.5">
+                  Puntaje Ponderado Obtenido:{' '}
+                  <strong className="font-mono">{evaluacion.porcentaje}%</strong> / 100% (Mínimo aprobatorio: 70%)
+                </div>
               </div>
             </div>
 
             <div className="text-right">
               {isAprobado ? (
-                <div className="px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-xs uppercase">
+                <div className="px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-xs uppercase shadow-xs">
                   Competencia Alcanzada
                 </div>
               ) : (
-                <div className="px-3 py-1.5 rounded-lg bg-amber-600 text-white font-bold text-xs uppercase">
+                <div className="px-3 py-1.5 rounded-lg bg-amber-600 text-white font-bold text-xs uppercase shadow-xs">
                   Plan de Mejoramiento Requerido
                 </div>
               )}
@@ -234,8 +248,8 @@ export const ActaEvaluacionModal: React.FC<ActaEvaluacionModalProps> = ({
             </div>
           )}
 
-          {/* Signatures */}
-          <div className="pt-10 grid grid-cols-2 gap-12 text-center text-xs text-slate-700">
+          {/* Signatures with 90s cartoon sticker badge */}
+          <div className="pt-8 grid grid-cols-2 gap-12 text-center text-xs text-slate-700">
             <div className="border-t border-slate-900 pt-2">
               <div className="font-bold text-slate-950">{evaluacion.calificador}</div>
               <div className="text-[10px] text-slate-500">Instructor Técnico Evaluador SENA</div>

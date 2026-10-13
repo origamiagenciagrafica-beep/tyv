@@ -13,6 +13,7 @@ import {
   EvaluacionRegistro,
   RapItem,
 } from '../data/senaData';
+import { MASCOTS_90S } from '../assets/mascots';
 
 interface ReportesViewProps {
   aprendiz: AprendizSena;
@@ -93,26 +94,36 @@ export const ReportesView: React.FC<ReportesViewProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-white/85 backdrop-blur-md border border-stone-200/90 shadow-sm">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald-700 mb-1">
-            <FileText className="w-4 h-4 text-emerald-600" />
-            <span>Sistema Integrado de Evaluación SENA</span>
+      {/* Header Banner with 90s Mascot Badge */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-3xl bg-white/90 backdrop-blur-md border-3 border-slate-900 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)]">
+        <div className="flex items-center gap-4">
+          <div className="w-14 h-14 rounded-2xl bg-amber-200 border-2 border-slate-900 p-0.5 shrink-0 overflow-hidden shadow-[2px_2px_0px_0px_rgba(15,23,42,1)]">
+            <img
+              src={MASCOTS_90S.designer.src}
+              alt="Mascota SENA 90s"
+              className="w-full h-full object-cover rounded-xl"
+            />
           </div>
-          <h2 className="text-xl font-bold text-slate-900 tracking-tight">
-            Actas Oficiales — {rap.titulo}
-          </h2>
-          <p className="text-xs text-slate-600 mt-0.5">
-            Registro oficial y emisión de actas individuales F-08 para la Ficha 2834591 ({rap.codigo}).
-          </p>
+          <div>
+            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-emerald-800 mb-1">
+              <span className="bg-emerald-200 text-slate-950 px-2.5 py-0.5 rounded-full border border-slate-900 shadow-[1px_1px_0px_0px_rgba(15,23,42,1)]">
+                Sistema Integrado de Evaluación SENA
+              </span>
+            </div>
+            <h2 className="text-xl font-black text-slate-900 tracking-tight">
+              Actas Oficiales — {rap.titulo}
+            </h2>
+            <p className="text-xs text-slate-600 mt-0.5 font-medium">
+              Registro oficial y emisión de actas individuales F-08 para la Ficha 2834591 ({rap.codigo}).
+            </p>
+          </div>
         </div>
 
         <button
           onClick={exportarCSV}
-          className="px-4 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-slate-800 text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer border border-stone-300 whitespace-nowrap"
+          className="px-4 py-2.5 rounded-2xl bg-yellow-200 hover:bg-yellow-300 text-slate-950 text-xs font-black transition-all flex items-center gap-2 cursor-pointer border-2 border-slate-900 shadow-[3px_3px_0px_0px_rgba(15,23,42,1)] whitespace-nowrap"
         >
-          <Download className="w-4 h-4 text-emerald-700" />
+          <Download className="w-4 h-4 text-slate-950" />
           <span>Exportar Matriz CSV</span>
         </button>
       </div>

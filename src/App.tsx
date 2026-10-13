@@ -16,6 +16,7 @@ import {
   RapItem,
 } from './data/senaData';
 import classroomBgImg from './assets/images/sena_aula_ilustracion_pastel_1791304597303.jpg';
+import { MASCOTS_90S } from './assets/mascots';
 
 export default function App() {
   const [aprendices, setAprendices] = useState<AprendizSena[]>(APRENDICES_INICIALES);
@@ -210,23 +211,44 @@ export default function App() {
           />
         )}
 
+        {/* Floating 90s Cartoon Quick Helper Button */}
+        <div className="fixed bottom-5 right-5 z-40 group">
+          <button
+            onClick={() => handleAbrirEvaluador()}
+            className="flex items-center gap-2.5 p-2 pr-4 bg-yellow-300 hover:bg-yellow-400 text-slate-950 font-black text-xs uppercase tracking-wider rounded-full border-3 border-slate-900 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] active:scale-95 transition-all cursor-pointer"
+            title="Abrir Evaluador Automático con Rúbrica e IA"
+          >
+            <div className="w-9 h-9 rounded-full bg-white border-2 border-slate-900 overflow-hidden shrink-0">
+              <img
+                src={MASCOTS_90S.designer.src}
+                alt="Mascota Cartoon"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <span className="hidden sm:inline">¡Evaluar Nodos & Pixels!</span>
+          </button>
+        </div>
+
         {/* Footer */}
-        <footer className="mt-auto border-t border-stone-200/90 bg-white/80 backdrop-blur-md px-4 sm:px-6 lg:px-8 py-6 text-xs text-slate-600">
+        <footer className="mt-auto border-t-2 border-slate-300 bg-white/90 backdrop-blur-md px-4 sm:px-6 lg:px-8 py-5 text-xs text-slate-700">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-slate-800">SENA</span>
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="font-black text-slate-900">SENA</span>
               <span aria-hidden="true">·</span>
-              <span>RAP_EJE_01: Ilustración Vectorial y Composición de Mapa de Bits</span>
+              <span className="font-bold">RAP_EJE_01: Ilustración Vectorial y Composición de Mapa de Bits</span>
               <span aria-hidden="true">·</span>
-              <span className="font-mono text-emerald-800 font-semibold bg-emerald-100 px-1.5 py-0.2 rounded">
+              <span className="font-mono text-slate-900 font-black bg-yellow-200 border border-slate-900 px-2 py-0.5 rounded-full shadow-[1px_1px_0px_0px_rgba(15,23,42,1)]">
                 Ficha 2834591
               </span>
             </div>
 
-            <div className="flex items-center gap-4 text-slate-600">
+            <div className="flex items-center gap-3 text-slate-600 font-semibold flex-wrap">
               <span>Tecnólogo en Desarrollo de Medios Gráficos Visuales</span>
               <span aria-hidden="true">·</span>
               <span>CENIGRAF</span>
+              <span className="bg-pink-200 text-slate-950 font-black px-2 py-0.5 rounded-full border border-slate-900 text-[10px] shadow-[1px_1px_0px_0px_rgba(15,23,42,1)]">
+                🎨 Edición Dibujos Animados '90s
+              </span>
             </div>
           </div>
         </footer>

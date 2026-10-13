@@ -9,6 +9,7 @@ import {
   ExternalLink,
   Printer,
   Info,
+  Wand2,
 } from 'lucide-react';
 import {
   AprendizSena,
@@ -21,6 +22,7 @@ import {
   evaluarConGeminiServidor,
   EvaluacionResultadoCalculado,
 } from '../utils/evaluationEngine';
+import { MASCOTS_90S } from '../assets/mascots';
 
 interface EvaluadorRapModalProps {
   isOpen: boolean;
@@ -599,23 +601,47 @@ export const EvaluadorRapModal: React.FC<EvaluadorRapModalProps> = ({
                 </span>
               </div>
 
-              {/* Big Juicio Card in Pastel Tones */}
+              {/* Big Juicio Card in Pastel Tones with 90s Cartoon Mascot Reaction */}
               <div
-                className={`p-5 rounded-xl border-2 text-center transition-all ${
+                className={`p-5 rounded-3xl border-3 border-slate-900 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] text-center transition-all ${
                   isAprobado
-                    ? 'bg-emerald-50/90 border-emerald-300 shadow-xs'
-                    : 'bg-amber-50/90 border-amber-300 shadow-xs'
+                    ? 'bg-emerald-100/90'
+                    : 'bg-amber-100/90'
                 }`}
               >
+                {/* 90s Cartoon Mascot Reaction Frame */}
+                <div className="flex justify-center mb-3">
+                  <div className="relative group">
+                    <div className="w-24 h-24 rounded-2xl bg-white border-3 border-slate-900 p-1 shadow-[3px_3px_0px_0px_rgba(15,23,42,1)] overflow-hidden">
+                      <img
+                        src={
+                          isAprobado
+                            ? MASCOTS_90S.approved.src
+                            : MASCOTS_90S.planMejora.src
+                        }
+                        alt="Mascota Cartoon 90s Juicio"
+                        className="w-full h-full object-cover rounded-xl"
+                      />
+                    </div>
+                    <span
+                      className={`absolute -bottom-2 -right-2 text-[9px] font-black px-2 py-0.5 rounded-full border-2 border-slate-900 uppercase shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] ${
+                        isAprobado ? 'bg-pink-300 text-slate-950' : 'bg-yellow-300 text-slate-950'
+                      }`}
+                    >
+                      {isAprobado ? "¡'90s Win!" : "¡Ajuste '90s!"}
+                    </span>
+                  </div>
+                </div>
+
                 <div className="flex items-center justify-center gap-2 mb-1">
                   {isAprobado ? (
-                    <CheckCircle2 className="w-7 h-7 text-emerald-600" />
+                    <CheckCircle2 className="w-6 h-6 text-emerald-700" />
                   ) : (
-                    <AlertOctagon className="w-7 h-7 text-amber-600" />
+                    <AlertOctagon className="w-6 h-6 text-amber-700" />
                   )}
                   <span
-                    className={`text-3xl font-black tracking-tight ${
-                      isAprobado ? 'text-emerald-900' : 'text-amber-900'
+                    className={`text-2xl font-black tracking-tight ${
+                      isAprobado ? 'text-emerald-950' : 'text-amber-950'
                     }`}
                   >
                     JUICIO: {resultadoCalculado.juicio}
@@ -623,27 +649,27 @@ export const EvaluadorRapModal: React.FC<EvaluadorRapModalProps> = ({
                 </div>
 
                 <div
-                  className={`text-sm font-bold uppercase tracking-wider ${
-                    isAprobado ? 'text-emerald-800' : 'text-amber-800'
+                  className={`text-xs font-black uppercase tracking-wider ${
+                    isAprobado ? 'text-emerald-900' : 'text-amber-900'
                   }`}
                 >
                   {isAprobado ? 'APROBADO' : 'NO APROBADO (DEFICIENTE)'}
                 </div>
 
-                <div className="mt-3 flex items-center justify-center gap-4 text-xs font-mono">
-                  <div className="px-3 py-1.5 rounded-lg bg-white border border-stone-200 shadow-2xs">
-                    <span className="text-slate-500 block text-[10px]">Puntaje Final</span>
+                <div className="mt-3 flex items-center justify-center gap-3 text-xs font-mono">
+                  <div className="px-3 py-1.5 rounded-xl bg-white border-2 border-slate-900 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)]">
+                    <span className="text-slate-500 block text-[10px] font-bold">Puntaje Final</span>
                     <span className="text-lg font-black text-slate-900">{resultadoCalculado.porcentaje}%</span>
                   </div>
 
-                  <div className="px-3 py-1.5 rounded-lg bg-white border border-stone-200 shadow-2xs">
-                    <span className="text-slate-500 block text-[10px]">Nivel</span>
-                    <span className="text-sm font-bold text-slate-900">{resultadoCalculado.nivelDesempeno}</span>
+                  <div className="px-3 py-1.5 rounded-xl bg-white border-2 border-slate-900 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)]">
+                    <span className="text-slate-500 block text-[10px] font-bold">Nivel</span>
+                    <span className="text-sm font-black text-slate-900">{resultadoCalculado.nivelDesempeno}</span>
                   </div>
                 </div>
 
                 {!resultadoCalculado.cumpleCriteriosCriticos && (
-                  <div className="mt-3 text-[11px] font-bold text-rose-900 bg-rose-100 border border-rose-300 py-1.5 px-3 rounded-lg">
+                  <div className="mt-3 text-[11px] font-black text-rose-950 bg-rose-200 border-2 border-slate-900 py-1.5 px-3 rounded-xl shadow-[2px_2px_0px_0px_rgba(15,23,42,1)]">
                     ⚠️ Incumplimiento en Criterio Crítico Excluyente
                   </div>
                 )}

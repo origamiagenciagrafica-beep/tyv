@@ -1,5 +1,6 @@
 import React from 'react';
-import { Award, Layers, Users, Zap, FileSpreadsheet } from 'lucide-react';
+import { Award, Layers, Users, Zap, FileSpreadsheet, Sparkles } from 'lucide-react';
+import { MASCOTS_90S } from '../assets/mascots';
 
 interface HeaderProps {
   currentView: 'matriz' | 'evaluador' | 'radar' | 'aprendices' | 'reportes';
@@ -15,23 +16,38 @@ export const Header: React.FC<HeaderProps> = ({
   aprendizSeleccionadoNombre,
 }) => {
   return (
-    <header className="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-stone-200/90 px-4 lg:px-8 py-3.5 shadow-xs">
+    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b-2 border-stone-300 px-4 lg:px-8 py-3 shadow-xs">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-        {/* Zone 1: Brand Title (One line wordmark) */}
+        {/* Zone 1: Brand Title (90s retro sticker aesthetic) */}
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-white font-black text-sm tracking-tighter shadow-sm shadow-emerald-500/30">
-            S
+          <div className="relative group cursor-pointer" onClick={() => onSelectView('matriz')}>
+            <div className="w-10 h-10 rounded-2xl bg-amber-200 border-2 border-slate-900 p-0.5 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] group-hover:rotate-6 transition-transform overflow-hidden">
+              <img
+                src={MASCOTS_90S.designer.src}
+                alt="Mascota SENA 90s"
+                className="w-full h-full object-cover rounded-xl"
+              />
+            </div>
+            <span className="absolute -bottom-1 -right-1 text-[9px] font-black bg-pink-300 text-slate-900 border border-slate-900 rounded-full px-1">
+              '90s
+            </span>
           </div>
+
           <button
             onClick={() => onSelectView('matriz')}
             className="text-left group cursor-pointer focus:outline-none"
           >
-            <span className="text-base font-bold tracking-tight text-slate-800 group-hover:text-emerald-700 transition-colors whitespace-nowrap">
-              SENA · Ilustración Vectorial & Mapa de Bits
-            </span>
-            <span className="hidden sm:inline-block ml-2 text-xs text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded-md font-mono font-semibold">
-              RAP_EJE_01
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-base font-black tracking-tight text-slate-900 group-hover:text-emerald-700 transition-colors whitespace-nowrap">
+                SENA · Ilustración & Mapa de Bits
+              </span>
+              <span className="hidden sm:inline-block text-[10px] text-emerald-900 bg-emerald-200 border-2 border-slate-900 px-2 py-0.5 rounded-full font-mono font-extrabold shadow-[1px_1px_0px_0px_rgba(15,23,42,1)]">
+                RAP_EJE_01
+              </span>
+            </div>
+            <p className="text-[10px] text-slate-500 font-medium hidden sm:block">
+              Tecnólogo en Desarrollo de Medios Gráficos Visuales
+            </p>
           </button>
         </div>
 
