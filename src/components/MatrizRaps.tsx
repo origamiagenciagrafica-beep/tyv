@@ -7,6 +7,7 @@ import {
   Sliders,
   Layers,
   Wand2,
+  Zap,
 } from 'lucide-react';
 import {
   AprendizSena,
@@ -16,13 +17,19 @@ import { MASCOTS_90S } from '../assets/mascots';
 
 interface MatrizRapsProps {
   aprendiz: AprendizSena;
+  aprendices?: AprendizSena[];
+  onSelectAprendiz?: (aprendiz: AprendizSena) => void;
   onEvaluarRap: () => void;
+  onEvaluarRapAprendiz?: (aprendiz: AprendizSena) => void;
   onVerDetallesRap?: () => void;
 }
 
 export const MatrizRaps: React.FC<MatrizRapsProps> = ({
   aprendiz,
+  aprendices,
+  onSelectAprendiz,
   onEvaluarRap,
+  onEvaluarRapAprendiz,
 }) => {
   const rap = RAP_ILUSTRACION_MAPA_BITS;
   const evaluacion = aprendiz.evaluacionRap;
@@ -84,6 +91,76 @@ export const MatrizRaps: React.FC<MatrizRapsProps> = ({
           </button>
         </div>
       </div>
+
+      {/* Roster Quick Buttons: Un botón para cada aprendiz */}
+      {aprendices && aprendices.length > 0 && (
+        <div className="p-4 rounded-3xl bg-yellow-100/90 border-3 border-slate-900 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] space-y-2.5">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
+              <Zap className="w-4 h-4 fill-slate-900 text-slate-900" />
+              <span>Listado de Aprendices · Botón de Evaluación Personalizada para Cada Uno:</span>
+            </span>
+            <span className="text-[10px] font-mono font-bold bg-white text-slate-900 px-2 py-0.5 rounded-full border border-slate-900">
+              {aprendices.length} Registrados
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2.5 overflow-x-auto pb-1">
+            {aprendices.map((ap) => {
+              const isSelected = ap.id === aprendiz.id;
+              const isA = ap.evaluacionRap?.juicio === 'A';
+              const shortName = ap.nombre.split(' ')[0] + (ap.nombre.split(' ')[1] ? ` ${ap.nombre.split(' ')[1]}` : '');
+
+              return (
+                <div
+                  key={ap.id}
+                  onClick={() => {
+                    if (onSelectAprendiz) onSelectAprendiz(ap);
+                  }}
+                  className={`flex items-center gap-2 p-2 pr-3 rounded-2xl border-2 border-slate-900 transition-all shrink-0 cursor-pointer active:scale-95 ${
+                    isSelected
+                      ? 'bg-white shadow-[4px_4px_0px_0px_rgba(16,185,129,1)] ring-2 ring-emerald-500 -translate-y-0.5'
+                      : 'bg-white/90 hover:bg-white hover:-translate-y-0.5 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)]'
+                  }`}
+                >
+                  <img
+                    src={ap.avatar}
+                    alt={ap.nombre}
+                    className="w-9 h-9 rounded-xl object-cover border border-slate-900"
+                  />
+                  <div className="text-left">
+                    <span className="block text-xs font-black text-slate-900 leading-tight truncate max-w-[120px]">
+                      {shortName}
+                    </span>
+                    <span
+                      className={`text-[9px] font-mono font-black px-1.5 py-0.2 rounded inline-block ${
+                        isA ? 'bg-emerald-100 text-emerald-900' : 'bg-amber-100 text-amber-900'
+                      }`}
+                    >
+                      {ap.evaluacionRap?.juicio} ({ap.evaluacionRap?.porcentaje}%)
+                    </span>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (onSelectAprendiz) onSelectAprendiz(ap);
+                      if (onEvaluarRapAprendiz) onEvaluarRapAprendiz(ap);
+                      else onEvaluarRap();
+                    }}
+                    title={`Evaluar a ${ap.nombre}`}
+                    className="ml-1 px-3 py-1.5 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-slate-950 text-xs font-black border-1.5 border-slate-900 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] cursor-pointer flex items-center gap-1 whitespace-nowrap active:scale-95"
+                  >
+                    <Zap className="w-3.5 h-3.5 fill-slate-950" />
+                    <span>Evaluar</span>
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Grid: 5 Criteria Breakdown & Active Apprentice Evidence Card */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

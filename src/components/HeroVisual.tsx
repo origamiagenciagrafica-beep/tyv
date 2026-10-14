@@ -170,45 +170,61 @@ export const HeroVisual: React.FC<HeroVisualProps> = ({
             </div>
           </div>
 
-          {/* Right Column: Visual Summary Metric Island (90s Pastel Pill Cards) */}
+          {/* Right Column: Visual Summary Metric Island (Interactive 90s Pastel Pill Action Buttons) */}
           <div className="grid grid-cols-2 gap-2.5 w-48 shrink-0">
-            <div className="p-3 rounded-2xl bg-emerald-100 border-2 border-slate-900 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)]">
+            <button
+              onClick={() => onSelectPhase('aprobados')}
+              className="p-3 rounded-2xl bg-emerald-100 hover:bg-emerald-200 border-2 border-slate-900 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] active:scale-95 transition-all text-left cursor-pointer group"
+              title="Filtrar cohorte de aprendices aprobados (A)"
+            >
               <div className="flex items-center justify-between text-[11px] text-emerald-950 font-black mb-0.5">
                 <span>Aprobados</span>
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700 group-hover:scale-110 transition-transform" />
               </div>
               <div className="text-xl font-black text-emerald-950 font-mono">{completionRate}%</div>
               <div className="text-[10px] text-emerald-800 font-bold">
                 {aprobadosCount}/{totalRaps} Aprendices
               </div>
-            </div>
+            </button>
 
-            <div className="p-3 rounded-2xl bg-amber-100 border-2 border-slate-900 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)]">
+            <button
+              onClick={() => onSelectPhase('mejora')}
+              className="p-3 rounded-2xl bg-amber-100 hover:bg-amber-200 border-2 border-slate-900 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] active:scale-95 transition-all text-left cursor-pointer group"
+              title="Filtrar aprendices con plan de mejoramiento (D)"
+            >
               <div className="flex items-center justify-between text-[11px] text-amber-950 font-black mb-0.5">
                 <span>Mejora</span>
-                <AlertTriangle className="w-3.5 h-3.5 text-amber-700" />
+                <AlertTriangle className="w-3.5 h-3.5 text-amber-700 group-hover:scale-110 transition-transform" />
               </div>
               <div className="text-xl font-black text-amber-950 font-mono">{noAprobadosCount}</div>
               <div className="text-[10px] text-amber-800 font-bold">Juicio 'D'</div>
-            </div>
+            </button>
 
-            <div className="p-3 rounded-2xl bg-sky-100 border-2 border-slate-900 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)]">
+            <button
+              onClick={() => onSelectPhase('radar')}
+              className="p-3 rounded-2xl bg-sky-100 hover:bg-sky-200 border-2 border-slate-900 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] active:scale-95 transition-all text-left cursor-pointer group"
+              title="Ver radar curricular y competencias"
+            >
               <div className="flex items-center justify-between text-[11px] text-sky-950 font-black mb-0.5">
                 <span>Horas</span>
-                <Clock className="w-3.5 h-3.5 text-sky-700" />
+                <Clock className="w-3.5 h-3.5 text-sky-700 group-hover:scale-110 transition-transform" />
               </div>
               <div className="text-xl font-black text-sky-950 font-mono">72h</div>
-              <div className="text-[10px] text-sky-800 font-bold">Créditos</div>
-            </div>
+              <div className="text-[10px] text-sky-800 font-bold">Ver Radar</div>
+            </button>
 
-            <div className="p-3 rounded-2xl bg-rose-100 border-2 border-slate-900 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)]">
+            <button
+              onClick={() => onSelectPhase('reportes')}
+              className="p-3 rounded-2xl bg-rose-100 hover:bg-rose-200 border-2 border-slate-900 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] active:scale-95 transition-all text-left cursor-pointer group"
+              title="Ver actas de la Ficha 2834591"
+            >
               <div className="flex items-center justify-between text-[11px] text-rose-950 font-black mb-0.5">
                 <span>Ficha</span>
                 <span className="text-[10px] font-black text-rose-900">SENA</span>
               </div>
               <div className="text-sm font-black text-rose-950 font-mono">2834591</div>
-              <div className="text-[10px] text-rose-800 font-bold">CENIGRAF</div>
-            </div>
+              <div className="text-[10px] text-rose-800 font-bold">Ver Actas</div>
+            </button>
           </div>
         </div>
       </div>

@@ -84,6 +84,14 @@ export const EvaluadorRapModal: React.FC<EvaluadorRapModalProps> = ({
     if (evalExistente) {
       setPuntuaciones(evalExistente.puntuacionCriterios);
       setObservaciones(evalExistente.observacionesCriterios || {});
+      if (evalExistente.evidenciaAdjunta) {
+        setTituloEvidencia(evalExistente.evidenciaAdjunta.titulo || '');
+        setTipoEvidencia(evalExistente.evidenciaAdjunta.tipo || '');
+        setEnlaceSoporte(evalExistente.evidenciaAdjunta.linkUrl || '');
+        setEspecificacionesTecnicas(
+          `Resolución: ${evalExistente.evidenciaAdjunta.resolucionReportada || '300 ppi'} | Espacio: ${evalExistente.evidenciaAdjunta.espacioColor || 'CMYK'} | Formato: ${evalExistente.evidenciaAdjunta.formato || '.AI + .PSD'}`
+        );
+      }
     } else {
       const initPuntajes: Record<string, number> = {};
       rapSeleccionado.criterios.forEach((c) => {
@@ -285,6 +293,42 @@ export const EvaluadorRapModal: React.FC<EvaluadorRapModalProps> = ({
           </button>
         </div>
 
+        {/* Quick Apprentice Evaluation Buttons Strip (1 a 1) */}
+        <div className="px-4 sm:px-6 py-2.5 bg-yellow-100 border-b-2 border-slate-900 flex items-center gap-2 overflow-x-auto">
+          <span className="text-[11px] font-black uppercase text-slate-900 whitespace-nowrap flex items-center gap-1 shrink-0">
+            <Zap className="w-3.5 h-3.5 fill-slate-900" />
+            <span>Evaluar a:</span>
+          </span>
+          <div className="flex items-center gap-2 flex-nowrap">
+            {aprendices.map((ap) => {
+              const isSelected = ap.id === aprendizSeleccionado.id;
+              const isA = ap.evaluacionRap?.juicio === 'A';
+              const shortName =
+                ap.nombre.split(' ')[0] +
+                (ap.nombre.split(' ')[1] ? ` ${ap.nombre.split(' ')[1]}` : '');
+              return (
+                <button
+                  key={ap.id}
+                  type="button"
+                  onClick={() => setAprendizSeleccionado(ap)}
+                  className={`px-3 py-1 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer border-2 border-slate-900 ${
+                    isSelected
+                      ? 'bg-emerald-400 text-slate-950 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] -translate-y-0.5'
+                      : 'bg-white hover:bg-stone-100 text-slate-800 shadow-xs'
+                  }`}
+                >
+                  <span
+                    className={`w-2 h-2 rounded-full border border-slate-900 ${
+                      isA ? 'bg-emerald-500' : 'bg-amber-400'
+                    }`}
+                  />
+                  <span>{shortName}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Controls Bar: Selector de Aprendiz y RAP */}
         <div className="p-4 sm:p-6 bg-stone-100/70 border-b border-stone-200 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -372,36 +416,40 @@ export const EvaluadorRapModal: React.FC<EvaluadorRapModalProps> = ({
                     Criterios Específicos de Evaluación ({rapSeleccionado.criterios.length})
                   </h3>
 
-                  {/* Presets Bar in Pastel */}
-                  <div className="flex items-center gap-1 text-[11px]">
-                    <span className="text-slate-500 mr-1">Presets:</span>
+                  {/* Presets Bar in Pastel (Botones de calificación rápida 100% activos) */}
+                  <div className="flex items-center gap-1.5 text-xs flex-wrap">
+                    <span className="text-slate-600 font-bold mr-1">Calificación Rápida:</span>
                     <button
+                      type="button"
                       onClick={() => aplicarPreset('sobresaliente')}
-                      className="px-2 py-0.5 rounded bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-medium transition-colors border border-emerald-200"
-                      title="Sobresaliente (95%)"
+                      className="px-2.5 py-1 rounded-xl bg-emerald-100 hover:bg-emerald-200 active:scale-95 text-emerald-950 font-black transition-all border-2 border-slate-900 shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] cursor-pointer"
+                      title="Sobresaliente (95% en todos los criterios)"
                     >
-                      Sobresaliente
+                      ⭐ 95% Sobresaliente
                     </button>
                     <button
+                      type="button"
                       onClick={() => aplicarPreset('aprobado')}
-                      className="px-2 py-0.5 rounded bg-sky-100 hover:bg-sky-200 text-sky-900 font-medium transition-colors border border-sky-200"
-                      title="Aprobado Mínimo (75%)"
+                      className="px-2.5 py-1 rounded-xl bg-sky-100 hover:bg-sky-200 active:scale-95 text-sky-950 font-black transition-all border-2 border-slate-900 shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] cursor-pointer"
+                      title="Aprobado Mínimo (75% en todos los criterios)"
                     >
-                      Aprobado
+                      ✓ 75% Aprobado
                     </button>
                     <button
+                      type="button"
                       onClick={() => aplicarPreset('deficiente')}
-                      className="px-2 py-0.5 rounded bg-amber-100 hover:bg-amber-200 text-amber-900 font-medium transition-colors border border-amber-200"
-                      title="Deficiente (55%)"
+                      className="px-2.5 py-1 rounded-xl bg-amber-100 hover:bg-amber-200 active:scale-95 text-amber-950 font-black transition-all border-2 border-slate-900 shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] cursor-pointer"
+                      title="Deficiente (55% - Activa Plan de Mejoramiento)"
                     >
-                      Deficiente
+                      ⚠️ 55% Mejora
                     </button>
                     <button
+                      type="button"
                       onClick={() => aplicarPreset('critico_fallido')}
-                      className="px-2 py-0.5 rounded bg-rose-100 hover:bg-rose-200 text-rose-900 font-medium transition-colors border border-rose-200"
+                      className="px-2.5 py-1 rounded-xl bg-rose-100 hover:bg-rose-200 active:scale-95 text-rose-950 font-black transition-all border-2 border-slate-900 shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] cursor-pointer"
                       title="Fallo en Criterio Crítico"
                     >
-                      Crítico ✗
+                      ✗ Crítico Fallido
                     </button>
                   </div>
                 </div>

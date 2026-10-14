@@ -19,7 +19,7 @@ interface ReportesViewProps {
   aprendiz: AprendizSena;
   aprendices: AprendizSena[];
   onAbrirActa: (evaluacion: EvaluacionRegistro, rap: RapItem, aprendiz: AprendizSena) => void;
-  onEvaluarRap: (rap: RapItem) => void;
+  onEvaluarRap: (rap: RapItem, aprendiz?: AprendizSena) => void;
 }
 
 export const ReportesView: React.FC<ReportesViewProps> = ({
@@ -228,8 +228,8 @@ export const ReportesView: React.FC<ReportesViewProps> = ({
                         <span>Acta SENA</span>
                       </button>
                       <button
-                        onClick={() => onEvaluarRap(rap)}
-                        className="px-2.5 py-1.5 rounded-lg bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border border-emerald-300 text-xs font-semibold transition-colors cursor-pointer"
+                        onClick={() => onEvaluarRap(rap, ap)}
+                        className="px-2.5 py-1.5 rounded-lg bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border border-emerald-300 text-xs font-semibold transition-colors cursor-pointer active:scale-95"
                       >
                         Evaluar
                       </button>
